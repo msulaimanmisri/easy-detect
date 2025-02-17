@@ -1,4 +1,4 @@
-![EasyDetect Image](public/easy-deploy.png)
+![EasyDetect Image](public/easy-detect.png)
 
 ## Easy Detect - Laravel Error Notification Package
 Easy Detect is a Laravel package designed to simplify error monitoring in your application. It automatically sends email notifications whenever an exception occurs, providing detailed error reports to help you quickly identify and resolve issues.
