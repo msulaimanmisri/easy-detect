@@ -64,36 +64,12 @@ class EasyDetectServiceProvider extends ServiceProvider
     public function handleException(): void
     {
         $this->app->make(ExceptionHandler::class)->reportable(function (\Throwable $error) {
-
-            /**
-             * By right, the email only should be sent in production environment
-             * As for local and staging, you can just log the error
-             */
-            if (app()->environment('local')) {
+            if ($this->enableCacheChecking($error) === false) {
                 return;
             }
-
-            /**
-             * To prevent spamming the email, we will cache the error message for 5 minutes
-             * If the same error message is thrown within 5 minutes, we will not send the email
-             */
-            $cacheKey = 'easy-detect:error:' . md5($error->getMessage() . $error->getFile() . $error->getLine());
-
-            if (Cache::has($cacheKey)) {
-                return;
-            }
-
-            Cache::put($cacheKey, true, now()->addMinutes(5));
 
             $traces = $error->getTrace();
-
-            $appTrace = collect($traces)->first(function ($trace) {
-                return isset($trace['file']) && (
-                    str_starts_with($trace['file'], base_path('app')) ||
-                    str_starts_with($trace['file'], base_path('resources'))
-                );
-            });
-
+            $appTrace = $this->getTheIssue($traces);
             $errorFile = $appTrace['file'] ?? $error->getFile();
             $errorLine = $appTrace['line'] ?? $error->getLine();
 
@@ -111,6 +87,48 @@ class EasyDetectServiceProvider extends ServiceProvider
                         errorTrace: $error->getTraceAsString()
                     ));
             }
+        });
+    }
+
+    /**
+     * Enable cache checking for errors
+     * 
+     * @param \Throwable $error
+     * @return bool Returns false if cache exists, true otherwise
+     */
+    public function enableCacheChecking($error)
+    {
+        $cacheKey = 'easy-detect:error:' . md5(
+            $error->getMessage() .
+                $error->getFile() .
+                $error->getLine() .
+                $error->getTraceAsString()
+        );
+
+        if (Cache::has($cacheKey)) {
+            return false;
+        }
+
+        Cache::put($cacheKey, true, now()->addMinutes(
+            config('easy-detect.cache_duration')
+        ));
+
+        return true;
+    }
+
+    /**
+     * Get the issue from the traces
+     * 
+     * @param array $traces
+     * @return array|null
+     */
+    public function getTheIssue($traces): ?array
+    {
+        return collect($traces)->first(function ($trace) {
+            return isset($trace['file']) && (
+                str_starts_with($trace['file'], base_path('app')) ||
+                str_starts_with($trace['file'], base_path('resources'))
+            );
         });
     }
 }
