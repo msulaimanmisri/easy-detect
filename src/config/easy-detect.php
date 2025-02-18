@@ -12,4 +12,9 @@ return [
      * The subject of the error report email
      */
     'subject' => env('EASY_DETECT_MAIL_SUBJECT', 'Error Log Report'),
+
+    /**
+     * The cache duration in minutes
+     */
+    'cache_duration' => 30,
 ];
