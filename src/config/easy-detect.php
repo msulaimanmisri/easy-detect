@@ -14,6 +14,11 @@ return [
     'subject' => env('EASY_DETECT_MAIL_SUBJECT', 'Error Log Report'),
 
     /**
+     * Turn the mailing report on or off by using boolean value
+     */
+    'turn_on' => true,
+
+    /**
      * The cache duration in minutes
      */
     'cache_duration' => 30,
