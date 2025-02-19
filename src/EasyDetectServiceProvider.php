@@ -64,6 +64,11 @@ class EasyDetectServiceProvider extends ServiceProvider
     public function handleException(): void
     {
         $this->app->make(ExceptionHandler::class)->reportable(function (\Throwable $error) {
+
+            if (config('easy-detect.turn_on') === false) {
+                return;
+            }
+
             if ($this->enableCacheChecking($error) === false) {
                 return;
             }
