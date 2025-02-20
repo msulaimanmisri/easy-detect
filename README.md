@@ -7,7 +7,6 @@ Easy Detect is a Laravel package designed to simplify error monitoring in your a
 > Found this package useful? Don't forget to ⭐ star the repository and share your feedback!
 
 ## Features
----
 * Automatic error email notifications for unhandled exceptions.
 
 * Customizable email recipients.
@@ -16,7 +15,9 @@ Easy Detect is a Laravel package designed to simplify error monitoring in your a
 
 * Configurable email template for better UI/UX.
 
-* Seamless integration with Laravel's logging system.
+<br/>
+
+![EasyDetect Image](public/easy-detect-example.png)
 
 
 ## About the Author
