@@ -16,7 +16,7 @@ return [
     /**
      * Turn the mailing report on or off by using boolean value
      */
-    'turn_on' => true,
+    'turn_on' => env('EASY_DETECT_TURN_ON', true),
 
     /**
      * The cache duration in minutes
