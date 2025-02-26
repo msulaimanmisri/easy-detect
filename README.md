@@ -26,7 +26,7 @@ Hi, I'm Sulaiman Misri, a Senior Executive based in Kuala Lumpur, Malaysia. If y
 ## Requirements
 * Laravel 10.x or higher
 
-* PHP 8.1 or higher
+* PHP 8.2 or higher
 
 * Mail configuration set up in .env
 
