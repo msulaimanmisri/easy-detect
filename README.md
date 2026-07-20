@@ -24,9 +24,9 @@ Easy Detect is a Laravel package designed to simplify error monitoring in your a
 Hi, I'm Sulaiman Misri, a Senior Executive based in Kuala Lumpur, Malaysia. If you find this package useful, feel free to explore my [portfolio](https://sulaimanmisri.com) for more information about my freelance services and open-source contributions.
 
 ## Requirements
-* Laravel 10.x or higher
+* Laravel 10.x – 13.x
 
-* PHP 8.2 or higher
+* PHP 8.1 or higher (PHP 8.3+ recommended for Laravel 13)
 
 * Mail configuration set up in .env
 
